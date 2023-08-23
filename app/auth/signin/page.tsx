@@ -74,8 +74,8 @@ const SignIn = (props: Props) => {
           </div>
 
           <div
-            onClick={() => signIn("google")}
-            className="group flex items-center outline-none gap-5 border border-white opacity-50 hover:opacity-100 rounded-md p-3 transition-all cursor-pointer"
+            onClick={handleAuth}
+            className="flex items-center outline-none gap-5 border border-white opacity-50 hover:opacity-100 rounded-md p-3 transition-all cursor-pointer"
           >
             <Image src={GoogleIcon} alt="google-icon" width={40} height={40} />
             <p className="text-white text-xl">Sign in with Google</p>
