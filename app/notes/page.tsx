@@ -1,22 +1,57 @@
 "use client";
 
-import NoteCard from '@/components/NoteCard';
-import PageWrapper from '@/components/PageWrapper';
-import SearchBar from '@/components/SearchBar';
-import { useSession } from 'next-auth/react';
-import React from 'react';
+import NoAccess from "@/components/NoAccess";
+import NoteCard from "@/components/NoteCard";
+import PageWrapper from "@/components/PageWrapper";
+import SearchBar from "@/components/SearchBar";
+import getData from "@/firebase/firestore/getData";
+import { DocumentData } from "firebase/firestore";
+import { useSession } from "next-auth/react";
+import React, { useEffect, useState } from "react";
+import { ToastContainer } from "react-toastify";
 
-type Props = {}
+type Props = {};
 
 const NotesHome = (props: Props) => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+
+  const [loading, setLoading] = useState<boolean>(false);
+  const [notes, setNotes] = useState<DocumentData[]>();
+
+  const fetchData = async () => {
+    setLoading(true);
+    
+    if (session){
+      const { result, error } = await getData('notes', session?.user?.email!, 'noteList');
+      setNotes(result);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, [session]);
+  
+
+  if (status === "unauthenticated") {
+    return <NoAccess />;
+  }
 
   return (
     <PageWrapper>
-        <SearchBar />
-        <NoteCard />
+      <SearchBar />
+      <div className="grid grid-cols-1 sm:grid-cols-2 place-items-center gap-6 mt-5">
+        {notes?.map((note, index) => (
+          <NoteCard
+            key={index}
+            title={note.title}
+            content={note.content}
+            time={note._createdAt}
+          />
+        ))}
+      </div>
+      <ToastContainer theme="dark" />
     </PageWrapper>
-  )
-}
+  );
+};
 
 export default NotesHome;

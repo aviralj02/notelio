@@ -6,7 +6,7 @@ type Props = {}
 const SearchBar = (props: Props) => {
   return (
     <div className="flex justify-center max-w-3xl mx-auto">
-      <div className="relative mt-14 w-full mx-1">
+      <div className="relative mt-10 w-full mx-1">
         <div className="absolute left-0 inset-y-0 flex items-center pl-5 pointer-events-none">
           <img src={Search.src} alt="search" className="w-[14px] h-[14px]" />
         </div>

@@ -19,3 +19,53 @@ body {
 	background-repeat: no-repeat;
 	background-size: cover;
 }
+
+.ql-toolbar .ql-stroke {
+	fill: none !important;
+	stroke: #ffffff81 !important;
+}
+
+.ql-toolbar .ql-fill {
+	fill: #ffffff81 !important;
+	stroke: none !important;
+}
+
+.ql-toolbar .ql-picker {
+	color: #ffffff81 !important;
+}
+
+.ql-toolbar .ql-active .ql-fill,
+.ql-toolbar .ql-active .ql-stroke,
+.ql-toolbar .ql-active .ql-picker {
+	stroke: white !important;
+	color: white !important;
+}
+
+.ql-container {
+	border: none !important;
+}
+.ql-toolbar{
+	border-radius: 15px;
+}
+.ql-container > .ql-editor.ql-blank::before{
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.284);
+}
+
+/* ScrollBar */
+::-webkit-scrollbar {
+	width: 8px;
+}
+::-webkit-scrollbar-thumb {
+	background: gray; 
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: black; 
+}
+
+
+
+
+

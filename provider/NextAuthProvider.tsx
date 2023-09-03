@@ -9,7 +9,7 @@ type Props = {
 
 const NextAuthProvider = ({ children }: Props) => {
   return (
-    <SessionProvider>
+    <SessionProvider refetchOnWindowFocus={false}>
         { children }
     </SessionProvider>
   )
