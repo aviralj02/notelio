@@ -1,27 +1,30 @@
 "use client"
 
 import dynamic from "next/dynamic";
-import React, { useMemo } from "react";
+import React from "react";
 import 'react-quill/dist/quill.snow.css';
 
 type Props = {
   content: string;
   setContent: Function;
+  editable: boolean;
 }
 
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
-const Editor = ({ content, setContent }: Props) => {
+const Editor = ({ content, setContent, editable }: Props) => {
 
   const modules = {
-    toolbar: [
-      [{ 'header': '1' }, { 'header': '2' }],
-      ['bold', 'italic', 'underline', 'strike'],
-      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-      ['link'],
-      ['clean']
-    ]
+    toolbar: editable
+      ? [
+          [{ header: "1" }, { header: "2" }],
+          ["bold", "italic", "underline", "strike"],
+          [{ list: "ordered" }, { list: "bullet" }],
+          ["link"],
+          ["clean"],
+        ]
+      : false,
   };
   
   return (
@@ -33,6 +36,7 @@ const Editor = ({ content, setContent }: Props) => {
         value={content}
         onChange={(val) => setContent(val!)}
         placeholder="Write here ..."
+        readOnly={editable ? false : true}
       />
     </div>
   );

@@ -24,7 +24,13 @@ const NotesHome = (props: Props) => {
     if (session){
       const { result, error } = await getData('notes', session?.user?.email!, 'noteList');
       setNotes(result);
+      
+      if (error){
+        console.log(error);
+      }
     }
+
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -39,10 +45,11 @@ const NotesHome = (props: Props) => {
   return (
     <PageWrapper>
       <SearchBar />
-      <div className="grid grid-cols-1 sm:grid-cols-2 place-items-center gap-6 mt-5">
-        {notes?.map((note, index) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 place-items-center gap-6 mt-3 py-3">
+        {notes?.map((note: DocumentData, index: number) => (
           <NoteCard
             key={index}
+            _id={note._id}
             title={note.title}
             content={note.content}
             time={note._createdAt}

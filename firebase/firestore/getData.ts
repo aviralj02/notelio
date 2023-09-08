@@ -11,11 +11,14 @@ const getData = async (col: string, id: string, subcollection: string) => {
 
     try{
         const docRef = await getDocs(
-            query(subcollectionRef, orderBy('_createdAt'))
+            query(subcollectionRef, orderBy('_createdAt', 'desc'))
         );
 
         docRef.forEach(doc => {
-            result.push(doc.data());
+            result.push({
+                _id: doc.id,
+                ...doc.data()
+            });
         })
     }
     catch(e){

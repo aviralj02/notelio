@@ -1,37 +1,58 @@
-"use client";
+"use client"
 
-import React, { ChangeEvent, FormEvent, useState } from "react";
-import PageWrapper from "@/components/PageWrapper";
 import Editor from "@/components/Editor";
 import NoAccess from "@/components/NoAccess";
+import PageWrapper from "@/components/PageWrapper";
+import editData from "@/firebase/firestore/editData";
+import getNoteDoc from "@/firebase/firestore/getNoteDoc";
 import { useSession } from "next-auth/react";
-import addData from "@/firebase/firestore/addData";
 import { useRouter } from "next/navigation";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-type Props = {};
+type Props = {
+  params: { noteId: string };
+};
 
-const Create = (props: Props) => {
+const EditNote = ({ params }: Props) => {
+  const noteId = params.noteId;
   const { data: session, status } = useSession();
 
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
-
   const router = useRouter();
-  const successCreation = () => {
-    toast.success("Note Created!", { position: toast.POSITION.BOTTOM_RIGHT });
+
+  const successUpdate = () => {
+    toast.success("Note Updated!", { position: toast.POSITION.BOTTOM_RIGHT });
+  }
+
+  const fetchNote = async () => {
+    if (session) {
+      const { result, error } = await getNoteDoc(
+        "notes",
+        session?.user?.email!,
+        "noteList",
+        noteId
+      );
+      setTitle(result?.title);
+      setContent(result?.content);
+
+      if (error) {
+        console.log(error);
+      }
+    }
   };
 
-  const handleCreate = async (event: FormEvent<HTMLFormElement>) => {
+  const handleUpdate = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const newNote: Note = {
+    const updatedNote: Note = {
       _createdAt: new Date(),
       title: title,
       content: content,
     }
-    const { result, error } = await addData('notes', session?.user?.email!, "noteList", newNote);
+    const { result, error } = await editData('notes', session?.user?.email!, "noteList", noteId, updatedNote);
     console.log(result);
     
     if (error) {
@@ -44,13 +65,16 @@ const Create = (props: Props) => {
     router.push("/notes");
   }
 
-  if (status === "unauthenticated"){
+  useEffect(() => {
+    fetchNote();
+  }, [session]);
+
+  if (status === "unauthenticated") {
     return <NoAccess />;
   }
-
   return (
     <PageWrapper>
-      <form onSubmit={handleCreate} className="flex flex-col gap-5">
+        <form onSubmit={handleUpdate} className="flex flex-col gap-5">
         <div className="bg-[#1f1f1f] mt-8 h-[500px] px-4 py-3 rounded-md">
           <input
             type="text"
@@ -67,7 +91,7 @@ const Create = (props: Props) => {
         </div>
 
         <button
-          onClick={successCreation}
+          onClick={successUpdate}
           type="submit"
           className="bg-[#1f1f1f] px-2 py-1 text-gray-500 hover:text-white transition-all rounded-lg"
         >
@@ -78,4 +102,4 @@ const Create = (props: Props) => {
   );
 };
 
-export default Create;
+export default EditNote;

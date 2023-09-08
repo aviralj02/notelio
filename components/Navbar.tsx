@@ -55,12 +55,12 @@ const Navbar = (props: Props) => {
                 >
                   <ul aria-labelledby="dropdownDefaultButton">
                     <li>
-                      <a
+                      <Link
                         href="/notes"
                         className="block text-center hover:text-white transition-all px-4 py-2 border-b border-gray-600"
                       >
                         Home
-                      </a>
+                      </Link>
                     </li>
                     <li>
                       <div
