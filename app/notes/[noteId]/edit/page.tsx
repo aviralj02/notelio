@@ -74,7 +74,7 @@ const EditNote = ({ params }: Props) => {
   }
   return (
     <PageWrapper>
-        <form onSubmit={handleUpdate} className="flex flex-col gap-5">
+        <form onSubmit={handleUpdate} className="flex flex-col gap-4">
         <div className="bg-[#1f1f1f] mt-8 h-[500px] px-4 py-3 rounded-md">
           <input
             type="text"

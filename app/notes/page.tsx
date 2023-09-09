@@ -15,12 +15,9 @@ type Props = {};
 const NotesHome = (props: Props) => {
   const { data: session, status } = useSession();
 
-  const [loading, setLoading] = useState<boolean>(false);
   const [notes, setNotes] = useState<DocumentData[]>();
 
   const fetchData = async () => {
-    setLoading(true);
-    
     if (session){
       const { result, error } = await getData('notes', session?.user?.email!, 'noteList');
       setNotes(result);
@@ -29,8 +26,6 @@ const NotesHome = (props: Props) => {
         console.log(error);
       }
     }
-
-    setLoading(false);
   }
 
   useEffect(() => {
