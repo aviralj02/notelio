@@ -16,22 +16,29 @@ const NotesHome = (props: Props) => {
   const { data: session, status } = useSession();
 
   const [notes, setNotes] = useState<DocumentData[]>();
+  const [search, setSearch] = useState<string>("");
 
-  const fetchData = async () => {
+  const fetchData = async () => { 
     if (session){
       const { result, error } = await getData('notes', session?.user?.email!, 'noteList');
-      setNotes(result);
+      const searchedNotes = result?.filter((note) => {
+        return (
+          search &&
+          note.title.toLowerCase().includes(search) ||
+          note.content.toLowerCase().includes(search)
+        );
+      });
+      setNotes(searchedNotes);
       
       if (error){
         console.log(error);
       }
     }
   }
-
+  
   useEffect(() => {
     fetchData();
-  }, [session]);
-  
+  }, [session, search]);
 
   if (status === "unauthenticated") {
     return <NoAccess />;
@@ -39,7 +46,7 @@ const NotesHome = (props: Props) => {
 
   return (
     <PageWrapper>
-      <SearchBar />
+      <SearchBar search={search} setSearch={setSearch} />
       <div className="grid grid-cols-1 sm:grid-cols-2 place-items-center gap-6 mt-3 py-3">
         {notes?.map((note: DocumentData, index: number) => (
           <NoteCard

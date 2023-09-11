@@ -91,6 +91,7 @@ const Navbar = (props: Props) => {
                           src={HomeIcon}
                           alt="home"
                           width={17}
+                          height={17}
                           className="opacity-50 group-hover:opacity-100 transition-all"
                         />
                         Home
@@ -105,6 +106,7 @@ const Navbar = (props: Props) => {
                           src={LogoutIcon}
                           alt="logout"
                           width={17}
+                          height={17}
                           className="opacity-50 group-hover:opacity-100 transition-all"
                         />
                         Sign out
