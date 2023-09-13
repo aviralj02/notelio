@@ -46,7 +46,10 @@ const ViewNote = ({ params }: Props) => {
       console.log(error);
     }
 
-    router.push("/notes");
+    setTimeout(() => {
+      router.push("/notes");
+    }, 1000);
+
     successDelete();
   }
 

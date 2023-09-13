@@ -5,8 +5,9 @@ import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import LogoutIcon from '../public/assets/logout.svg';
-import HomeIcon from '../public/assets/home.svg';
+import LogoutIcon from "../public/assets/logout.svg";
+import HomeIcon from "../public/assets/home.svg";
+import SkeletonNavbar from "./skeletons/SkeletonNavbar";
 
 type Props = {};
 
@@ -15,11 +16,13 @@ const Navbar = (props: Props) => {
   const [dropdown, setDropdown] = useState<boolean>(false);
 
   const router = useRouter();
-  
+
   const user = session?.user?.name?.split(" ")[0];
 
   return (
     <>
+      {!session && <SkeletonNavbar />}
+      
       {status === "authenticated" && (
         <div className="px-8 max-w-3xl mx-auto">
           <div className="flex mt-10 justify-between">

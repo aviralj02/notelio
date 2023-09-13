@@ -20,6 +20,7 @@ body {
 	background-size: cover;
 }
 
+/* REACT QUILL EDITOR CSS */
 .ql-toolbar .ql-stroke {
 	fill: none !important;
 	stroke: #ffffff81 !important;
@@ -64,8 +65,3 @@ body {
 ::-webkit-scrollbar-thumb:hover {
 	background: black; 
 }
-
-
-
-
-
