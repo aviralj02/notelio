@@ -32,7 +32,7 @@ const SignIn = (props: Props) => {
 
         <hr className="border h-px border-[#414040] mt-5" />
 
-        <div className="flex flex-col items-center mt-10 gap-8">
+        <div className="flex flex-col items-center mt-10 gap-6">
           <div className="max-w-xl flex flex-col gap-10">
             <h2 className="text-3xl text-white">
               By{" "}
@@ -75,7 +75,7 @@ const SignIn = (props: Props) => {
 
           <div
             onClick={handleAuth}
-            className="flex items-center outline-none gap-5 border border-white opacity-50 hover:opacity-100 rounded-md p-3 transition-all cursor-pointer"
+            className="flex items-center outline-none gap-5 my-3 border border-white opacity-50 hover:opacity-100 rounded-md p-3 transition-all cursor-pointer"
           >
             <Image src={GoogleIcon} alt="google-icon" width={40} height={40} />
             <p className="text-white text-xl">Sign in with Google</p>

@@ -11,7 +11,7 @@ const Hero = (props: Props) => {
     <div className="flex flex-col gap-6 justify-center items-center h-screen px-4">
       <div className="flex flex-col gap-5">
         <h1
-          className="text-7xl text-center sm:text-9xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-purple-400"
+          className="text-7xl text-center sm:text-9xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-purple-400 select-none"
         >
           Notelio
         </h1>
@@ -25,7 +25,7 @@ const Hero = (props: Props) => {
         </p>
       </div>
       <div
-        className="cursor-pointer text-[#EAEAEA] transition-all flex gap-3 items-center hover:gap-4 w-fit sm:justify-center"
+        className="cursor-pointer text-[#EAEAEA] transition-all flex gap-3 items-center hover:gap-4 w-fit sm:justify-center select-none"
       >
         <div
           onClick={() => signIn()}
