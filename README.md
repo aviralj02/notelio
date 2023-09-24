@@ -1,7 +1,8 @@
 # 📝 Notelio
-Notelio is comprehensive note taking web application which allow users to Create, Read, Update and Delete their notes. The website ensures complete authentication, guaranteeing the safety and security of all user notes.
 
-<center>Stay organized, access notes on the go ✍️</center>
+<p align="center">Stay organized, access notes on the go ✍️</p>
+
+Notelio is comprehensive note taking web application which allow users to Create, Read, Update and Delete their notes. The website ensures complete authentication, guaranteeing the safety and security of all user notes.
 
 ![LandingPage](./public/preview.png)
 
