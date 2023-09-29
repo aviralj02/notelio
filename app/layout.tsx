@@ -8,7 +8,15 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Notelio",
   description: "Notelio is a comprehensive note taking application. Make your notes with ease.",
-  keywords: ['Note Taker', 'Next.js', 'Firebase', 'NextAuth']
+  keywords: ['Note Taker', 'Next.js', 'Firebase', 'NextAuth'],
+  openGraph: {
+    title: 'Notelio',
+    description: 'Notelio is a comprehensive note taking application. Make your notes with ease.',
+    url: 'https://notelio.vercel.app',
+    siteName: "Notelio",
+    locale: "en-US",
+    type: "website"
+  }
 };
 
 export default function RootLayout({
