@@ -72,7 +72,7 @@ const NotesHome = (props: Props) => {
           <h1 className="text-lg sm:text-xl text-[#a4a2a2] mt-5 w-full text-center">No notes to display 🥲</h1>
           <h1 className="text-lg sm:text-xl text-[#a4a2a2] mt-5 w-full text-center">
             <Link href={"/notes/create"} className="underline hover:text-white transition-all">Click here</Link>{" "}
-            to create <br className="block sm:hidden" /> your first note
+            to create <br className="block sm:hidden" /> a new note
           </h1>
         </div>
       )}
