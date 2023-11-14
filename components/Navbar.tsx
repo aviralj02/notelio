@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -15,6 +15,24 @@ const Navbar = (props: Props) => {
   const { data: session, status } = useSession();
   const [dropdown, setDropdown] = useState<boolean>(false);
 
+  useEffect(() => {
+    // this function closes the dropdown if clicked outside of the dropdown div
+    const handleDocumentClick = (e: Event) => {
+      if (!e.target || !(e.target instanceof Element)) {
+        return;
+      }
+      if (!e.target.closest(".dropdown")) {
+        setDropdown(false);
+      }
+    };
+
+    document.addEventListener("click", handleDocumentClick);
+
+    return () => {
+      document.removeEventListener("click", handleDocumentClick);
+    };
+  }, []);
+
   const router = useRouter();
 
   const user = session?.user?.name?.split(" ")[0];
@@ -22,7 +40,7 @@ const Navbar = (props: Props) => {
   return (
     <>
       {!session && <SkeletonNavbar />}
-      
+
       {status === "authenticated" && (
         <div className="px-8 max-w-3xl mx-auto">
           <div className="flex mt-10 justify-between">
@@ -43,7 +61,7 @@ const Navbar = (props: Props) => {
                 New Note
               </Link>
 
-              <div className="relative">
+              <div className="relative dropdown">
                 {/* DESKTOP DEVICES DROPDOWN BTN */}
                 <button
                   className="hidden sm:flex items-center w-full gap-3 bg-[#1f1f1f] rounded-md text-[#a4a2a2] px-4 py-2 hover:text-white transition-all"
