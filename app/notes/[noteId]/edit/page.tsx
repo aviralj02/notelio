@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Editor from "@/components/Editor";
 import NoAccess from "@/components/NoAccess";
@@ -9,7 +9,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 type Props = {
   params: { noteId: string };
@@ -22,10 +22,6 @@ const EditNote = ({ params }: Props) => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const router = useRouter();
-
-  const successUpdate = () => {
-    toast.success("Note Updated!", { position: toast.POSITION.BOTTOM_RIGHT });
-  }
 
   const fetchNote = async () => {
     if (session) {
@@ -51,10 +47,16 @@ const EditNote = ({ params }: Props) => {
       _createdAt: new Date(),
       title: title,
       content: content,
-    }
-    const { result, error } = await editData('notes', session?.user?.email!, "noteList", noteId, updatedNote);
+    };
+    const { result, error } = await editData(
+      "notes",
+      session?.user?.email!,
+      "noteList",
+      noteId,
+      updatedNote
+    );
     console.log(result);
-    
+
     if (error) {
       return console.log(error);
     }
@@ -63,7 +65,8 @@ const EditNote = ({ params }: Props) => {
     setContent("");
 
     router.push("/notes");
-  }
+    toast.success("Note Updated!", { position: toast.POSITION.BOTTOM_RIGHT });
+  };
 
   useEffect(() => {
     fetchNote();
@@ -74,7 +77,7 @@ const EditNote = ({ params }: Props) => {
   }
   return (
     <PageWrapper>
-        <form onSubmit={handleUpdate} className="flex flex-col gap-4">
+      <form onSubmit={handleUpdate} className="flex flex-col gap-4">
         <div className="bg-[#1f1f1f] mt-8 h-[500px] px-4 py-3 rounded-md">
           <input
             type="text"
@@ -91,7 +94,6 @@ const EditNote = ({ params }: Props) => {
         </div>
 
         <button
-          onClick={successUpdate}
           type="submit"
           className="bg-[#1f1f1f] px-2 py-1 text-gray-500 hover:text-white transition-all rounded-lg"
         >

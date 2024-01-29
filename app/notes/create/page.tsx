@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 import addData from "@/firebase/firestore/addData";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 type Props = {};
 
@@ -19,9 +19,6 @@ const Create = (props: Props) => {
   const [content, setContent] = useState<string>("");
 
   const router = useRouter();
-  const successCreation = () => {
-    toast.success("Note Created!", { position: toast.POSITION.BOTTOM_RIGHT });
-  };
 
   const handleCreate = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -30,10 +27,15 @@ const Create = (props: Props) => {
       _createdAt: new Date(),
       title: title,
       content: content,
-    }
-    const { result, error } = await addData('notes', session?.user?.email!, "noteList", newNote);
+    };
+    const { result, error } = await addData(
+      "notes",
+      session?.user?.email!,
+      "noteList",
+      newNote
+    );
     console.log(result);
-    
+
     if (error) {
       return console.log(error);
     }
@@ -42,9 +44,10 @@ const Create = (props: Props) => {
     setContent("");
 
     router.push("/notes");
-  }
+    toast.success("Note Created!", { position: toast.POSITION.BOTTOM_RIGHT });
+  };
 
-  if (status === "unauthenticated"){
+  if (status === "unauthenticated") {
     return <NoAccess />;
   }
 
@@ -67,7 +70,6 @@ const Create = (props: Props) => {
         </div>
 
         <button
-          onClick={successCreation}
           type="submit"
           className="bg-[#1f1f1f] px-2 py-1 text-gray-500 hover:text-white transition-all rounded-lg"
         >
